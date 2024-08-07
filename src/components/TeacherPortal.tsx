@@ -62,9 +62,14 @@ const TeacherPortal: React.FC = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogType, setDialogType] = useState<'add' | 'edit' | 'delete'>('add');
   const [newStudent, setNewStudent] = useState({ name: '', subject: '', marks: 0 });
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    axios.get<Student[]>("http://127.0.0.1:8082/student")
+    axios.get<Student[]>("http://127.0.0.1:8082/student", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       .then(response => {
         setStudents(response.data);
       })
@@ -125,7 +130,11 @@ const TeacherPortal: React.FC = () => {
 
   const handleDialogSubmit = () => {
     if (dialogType === 'add') {
-      axios.post('http://127.0.0.1:8082/student/add', newStudent)
+      axios.post('http://127.0.0.1:8082/student/add', newStudent, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
         .then(response => {
           setStudents([...students, response.data]);
           Swal.fire({
@@ -142,7 +151,11 @@ const TeacherPortal: React.FC = () => {
           });
         });
     } else if (dialogType === 'edit' && selectedStudent) {
-      axios.put(`http://127.0.0.1:8082/student/update/${selectedStudent._id}`, newStudent)
+      axios.put(`http://127.0.0.1:8082/student/update/${selectedStudent._id}`, newStudent, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
         .then(response => {
           setStudents(students.map(student => student._id === selectedStudent._id ? response.data : student));
           Swal.fire({
@@ -159,7 +172,11 @@ const TeacherPortal: React.FC = () => {
           });
         });
     } else if (dialogType === 'delete' && selectedStudent) {
-      axios.delete(`http://127.0.0.1:8082/student/delete/${selectedStudent._id}`)
+      axios.delete(`http://127.0.0.1:8082/student/delete/${selectedStudent._id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
         .then(response => {
           setStudents(students.filter(student => student._id !== selectedStudent._id));
           Swal.fire({
@@ -183,7 +200,11 @@ const TeacherPortal: React.FC = () => {
 
   useEffect(() => {
     if(newStudent) {
-      axios.get<Student[]>("http://127.0.0.1:8082/student")
+      axios.get<Student[]>("http://127.0.0.1:8082/student", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       .then(response => {
         setStudents(response.data);
       })
