@@ -66,6 +66,7 @@ const Login: React.FC = () => {
       <Typography variant="h4" className='login'>Login</Typography>
       <form className='form' onSubmit={handleSubmit}>
         <TextField
+          id='username'
           label="Username"
           fullWidth
           required
@@ -76,6 +77,7 @@ const Login: React.FC = () => {
           }}
         />
         <TextField
+          id='password'
           label="Password"
           type="password"
           fullWidth
