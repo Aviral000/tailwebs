@@ -17,7 +17,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Swal from 'sweetalert2';
-import { PiStudentFill } from "react-icons/pi";
+import { PiStudentFill } from 'react-icons/pi';
+import { AiOutlineUser } from 'react-icons/ai'; // Import a default icon from react-icons
+import { Tooltip } from '@mui/material';
 import Header from './Header';
 
 interface Column {
@@ -198,25 +200,31 @@ const TeacherPortal: React.FC = () => {
     setNewStudent({ name: '', subject: '', marks: 0 });
   };
 
-  useEffect(() => {
-    if(newStudent) {
-      axios.get<Student[]>("https://tailwebs-backend.onrender.com/student", {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      .then(response => {
-        setStudents(response.data);
-      })
-      .catch(error => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Failed to fetch student data',
-        });
-      });
-    }
-  }, [newStudent])
+  const renderInitialIcon = (name: string) => {
+    const initial = name.charAt(0).toUpperCase();
+    return (
+      <Tooltip title={name} arrow>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{
+            width: '40px',
+            height: '40px',
+            borderRadius: '50%',
+            backgroundColor: '#ddd',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginRight: '8px',
+            fontSize: '18px',
+            fontWeight: 'bold',
+            color: '#333'
+          }}>
+            {initial}
+          </div>
+          {name}
+        </div>
+      </Tooltip>
+    );
+  };
 
   return (
     <div>
@@ -249,7 +257,9 @@ const TeacherPortal: React.FC = () => {
                       const value = student[column.id as keyof Student];
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {column.id === 'action' ? (
+                          {column.id === 'name' ? (
+                            renderInitialIcon(student.name)
+                          ) : column.id === 'action' ? (
                             <>
                               <Button onClick={(event) => handleActionClick(event, student)}>
                                 <PiStudentFill />
