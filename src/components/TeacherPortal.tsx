@@ -65,7 +65,7 @@ const TeacherPortal: React.FC = () => {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    axios.get<Student[]>("http://127.0.0.1:8082/student", {
+    axios.get<Student[]>("https://tailwebs-backend.onrender.com/student", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -130,7 +130,7 @@ const TeacherPortal: React.FC = () => {
 
   const handleDialogSubmit = () => {
     if (dialogType === 'add') {
-      axios.post('http://127.0.0.1:8082/student/add', newStudent, {
+      axios.post('https://tailwebs-backend.onrender.com/student/add', newStudent, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -151,7 +151,7 @@ const TeacherPortal: React.FC = () => {
           });
         });
     } else if (dialogType === 'edit' && selectedStudent) {
-      axios.put(`http://127.0.0.1:8082/student/update/${selectedStudent._id}`, newStudent, {
+      axios.put(`https://tailwebs-backend.onrender.com/student/update/${selectedStudent._id}`, newStudent, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -172,7 +172,7 @@ const TeacherPortal: React.FC = () => {
           });
         });
     } else if (dialogType === 'delete' && selectedStudent) {
-      axios.delete(`http://127.0.0.1:8082/student/delete/${selectedStudent._id}`, {
+      axios.delete(`https://tailwebs-backend.onrender.com/student/delete/${selectedStudent._id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -200,7 +200,7 @@ const TeacherPortal: React.FC = () => {
 
   useEffect(() => {
     if(newStudent) {
-      axios.get<Student[]>("http://127.0.0.1:8082/student", {
+      axios.get<Student[]>("https://tailwebs-backend.onrender.com/student", {
         headers: {
           Authorization: `Bearer ${token}`
         }

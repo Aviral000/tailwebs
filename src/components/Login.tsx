@@ -23,7 +23,7 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post<LoginResponse>('http://127.0.0.1:8082/teacher/login', {
+      const response = await axios.post<LoginResponse>('https://tailwebs-backend.onrender.com/teacher/login', {
         username,
         password
       });
