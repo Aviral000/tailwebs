@@ -88,6 +88,8 @@ const Login: React.FC = () => {
             marginTop: "1rem",
             marginBottom: "1rem"
           }}
+          helperText="Password must be at least 6 characters long"
+          FormHelperTextProps={{ sx: { color: 'red' } }}
         />
         <Button 
           type="submit" 
