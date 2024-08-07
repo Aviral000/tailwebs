@@ -323,6 +323,7 @@ const TeacherPortal: React.FC = () => {
                   fullWidth
                   type="number"
                   value={newStudent.marks}
+                  inputProps={{ min: 0, max: 100 }}
                   onChange={(e) => setNewStudent({ ...newStudent, marks: +e.target.value })}
                 />
               </>
