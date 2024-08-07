@@ -325,6 +325,8 @@ const TeacherPortal: React.FC = () => {
                   value={newStudent.marks}
                   inputProps={{ min: 0, max: 100 }}
                   onChange={(e) => setNewStudent({ ...newStudent, marks: +e.target.value })}
+                  error={newStudent.marks < 0 || newStudent.marks > 100}
+                  helperText={newStudent.marks < 0 ? 'Marks cannot be negative' : newStudent.marks > 100 ? 'Marks cannot exceed 100' : ''}
                 />
               </>
             )}
