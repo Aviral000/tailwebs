@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+$base_color: rgba(255, 255, 255, 1);
+
+$text_color: rgba(0, 0, 0, 1);
+
+$font_weight: 100;
+
+@mixin playFair {
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+body {
+    margin: 0
+}
+
+.header {
+    .A1 {
+        @include playFair();
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        padding-left: 5rem;
+        padding-right: 5rem;
+    }
+    .A2 {
+        @include playFair();
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        font-size: 1.5rem;
+    }
+    .B1 {
+        display: flex;
+        img {
+            width: 2rem;
+            height: 2rem;
+            object-fit: cover;
+        }
+    }
+    .B2 {
+        display: flex;
+        gap: 2rem;
+
+        button {
+            @include playFair();
+            padding: 0;
+            border: 0;
+            background-color: white;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+    }
+    .B3 {
+        .C1 {
+            margin: 0;
+            padding: 0;
+            background-color: inherit;
+            border: 0;
+            font-size: larger;
+        }
+        .dropdown-menu {
+            top: 100%;
+            right: 0;
+            z-index: 1000;
+            font-size: 1rem;
+            display: flex;
+            flex-direction: column;
+        
+            div {
+              margin: 10px 0;
+              cursor: pointer;
+            }
+        }
+    }
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: font-size .3s ease;
+}
+
+a:hover {
+    font-size: 1.2rem;
+}
+
+@media screen and (max-width: 395px) {
+    .header {
+        .A1 {
+            @include playFair();
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        .A2 {
+            @include playFair();
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            padding-left: 2rem;
+            padding-right: 1rem;
+            font-size: 1.5rem;
+        }
+    }
+}
