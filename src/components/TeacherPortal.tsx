@@ -18,7 +18,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Swal from 'sweetalert2';
 import { PiStudentFill } from 'react-icons/pi';
-import { AiOutlineUser } from 'react-icons/ai'; // Import a default icon from react-icons
+import { AiOutlineUser } from 'react-icons/ai';
 import { Tooltip } from '@mui/material';
 import Header from './Header';
 
@@ -138,12 +138,20 @@ const TeacherPortal: React.FC = () => {
           }
         })
         .then(response => {
-          setStudents([...students, response.data]);
-          Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: 'Student added successfully',
-          });
+          setStudents([...students, response.data.student]);
+          if(response.data.newRegister) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Success',
+              text: 'Student added successfully',
+            });
+          } else {
+            Swal.fire({
+              icon: 'success',
+              title: 'Success',
+              text: 'Student is already exist and marks has been updated',
+            });
+          }
         })
         .catch(error => {
           Swal.fire({
@@ -199,6 +207,24 @@ const TeacherPortal: React.FC = () => {
     setOpenDialog(false);
     setNewStudent({ name: '', subject: '', marks: 0 });
   };
+
+  useEffect(() => {
+    axios.get<Student[]>("https://tailwebs-backend.onrender.com/student", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      setStudents(response.data);
+    })
+    .catch(error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to fetch student data',
+      });
+    });
+  }, [students])
 
   const renderInitialIcon = (name: string) => {
     const initial = name.charAt(0).toUpperCase();
